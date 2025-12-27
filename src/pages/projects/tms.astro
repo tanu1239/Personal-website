@@ -1,0 +1,128 @@
+---
+const title = "Deep TMS Targeting via SimNIBS + Unsupervised Analysis";
+const repo = "https://github.com/tanu1239/gittms"; // update to your actual TMS repo URL
+const tags = [
+  "Computational Neuroscience",
+  "Biomedical Engineering",
+  "SimNIBS",
+  "TMS",
+  "Finite Element Simulation",
+  "Python",
+  "Clustering"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        This project investigates whether <strong>deep transcranial magnetic stimulation (TMS)</strong> coils can
+        effectively target <strong>deep brain structures</strong> commonly addressed by
+        <strong>deep brain stimulation (DBS)</strong>, using biophysical simulation and data-driven analysis.
+      </p>
+
+      <p>
+        Using <strong>SimNIBS</strong>, I ran scalp-wide coil placement optimizations across multiple head
+        reconstructions and then analyzed the resulting optimal coil coordinates in <strong>MNI space</strong> using
+        clustering and visualization techniques. A second-stage simulation validated field intensity at the
+        target regions using the cluster-derived optimal coordinates.
+      </p>
+
+      <h2>High-Level Pipeline</h2>
+      <ol>
+        <li><strong>Head model inputs</strong>: subject MRI-derived reconstructions and meshes (T1/T2 → headreco output).</li>
+        <li><strong>Optimization runs</strong>: simulate coil placements across the scalp to find the best location for each target.</li>
+        <li><strong>Coordinate normalization</strong>: convert subject-space outputs into <strong>MNI space</strong> via affine transforms.</li>
+        <li><strong>Unsupervised analysis</strong>: identify consistent “best” scalp regions using clustering + t-SNE.</li>
+        <li><strong>FEA validation</strong>: re-simulate using representative optimal coordinates to quantify induced field intensity.</li>
+      </ol>
+
+      <h2>Targets</h2>
+      <p>
+        Simulations were run for deep structures motivated by DBS targets / clinical relevance, including:
+      </p>
+      <ul>
+        <li>Amygdala</li>
+        <li>Anterior Cingulate Cortex</li>
+        <li>Fornix</li>
+        <li>Globus Pallidus</li>
+        <li>Hippocampus</li>
+        <li>Periaqueductal Gray</li>
+        <li>Subthalamic Nucleus</li>
+        <li>Ventromedial Thalamic Nucleus</li>
+      </ul>
+
+      <h2>What’s in the Repo</h2>
+      <ul>
+        <li>
+          <strong>Optimization scripts</strong>:
+          per-structure Python scripts (e.g., <code>find_optimal_coords_for_*.py</code>) that run SimNIBS optimization
+          to estimate best scalp coil placement for each target.
+        </li>
+        <li>
+          <strong>Coordinate transform utilities</strong>:
+          <code>interpret_affine_coordinates.py</code> for mapping between subject coordinates and MNI coordinates.
+        </li>
+        <li>
+          <strong>Analysis</strong>:
+          <code>kmeans_clustering.py</code>, <code>agglomerative_clustering.py</code>, and <code>TSNE_visualization.py</code>
+          to identify trends and stable placement clusters across subjects.
+        </li>
+        <li>
+          <strong>FEA follow-ups</strong>:
+          <code>FEA_simulations_with_optimal_coords*.py</code> to quantify induced field intensity at the targets using
+          cluster-derived coordinates.
+        </li>
+        <li>
+          <strong>Example data + outputs</strong>:
+          representative head mesh inputs and sample SimNIBS optimization outputs, plus an example <code>.msh</code>
+          file containing an e-field intensity map viewable in Gmsh/SimNIBS.
+        </li>
+      </ul>
+
+      <h2>Why It Matters</h2>
+      <ul>
+        <li>
+          Deep TMS is non-invasive and more accessible than DBS, but depth targeting is technically challenging.
+        </li>
+        <li>
+          This project uses simulation to systematically test whether deep coils can meaningfully reach subcortical targets.
+        </li>
+        <li>
+          The analysis identifies robust scalp placement regions and supports follow-up validation and future studies.
+        </li>
+      </ul>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+
+      <h2>Disclaimer</h2>
+      <p>
+        This work is <strong>computational modeling only</strong> and is for research/educational purposes.
+        It does not constitute medical advice and is not a clinical treatment recommendation.
+      </p>
+    </main>
+  </body>
+</html>

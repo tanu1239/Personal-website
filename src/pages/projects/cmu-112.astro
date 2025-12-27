@@ -1,0 +1,111 @@
+---
+const title = "Monster Escape Maze (CMU 15-112 Final Project)";
+const repo = "https://github.com/tanu1239/YOUR-15-112-GAME-REPO"; // replace if needed
+const tags = [
+  "Game Development",
+  "Python",
+  "CMU 15-112",
+  "Procedural Generation",
+  "Raycasting",
+  "Adversarial Search"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        A generative 3D escape game built as the final project for
+        <strong>CMU 15-112 (Fundamentals of Programming)</strong>.
+        Each run places the player into a procedurally generated 3D maze rendered
+        using raycasting, with monsters, loot, and multiple game modes.
+      </p>
+
+      <h2>Gameplay Overview</h2>
+      <ul>
+        <li>One-player and two-player modes</li>
+        <li>Procedurally generated 3D maze terrain</li>
+        <li>Multiple levels with increasing maze complexity and monster count</li>
+        <li>Goal: escape the maze (first to escape wins in two-player mode)</li>
+      </ul>
+
+      <h2>World & Mechanics</h2>
+      <ul>
+        <li>
+          <strong>Raycasting renderer:</strong> 3D view implemented by casting rays
+          and projecting wall slices onto the screen
+        </li>
+        <li>
+          <strong>Monsters:</strong> adversarial agents that chase players through the maze
+        </li>
+        <li>
+          <strong>Combat:</strong> players can fight monsters (and each other in 2-player mode)
+        </li>
+        <li>
+          <strong>Loot system:</strong> chests contain swords, health boosters, and shields
+        </li>
+      </ul>
+
+      <h2>Items</h2>
+      <ul>
+        <li>
+          <strong>Swords:</strong> wooden, stone, iron, gold, and diamond tiers with increasing damage
+          (rarer swords appear less frequently)
+        </li>
+        <li>
+          <strong>Health boosters:</strong> restore player health
+        </li>
+        <li>
+          <strong>Shields:</strong> reduce damage from monsters and other players
+        </li>
+      </ul>
+
+      <h2>Build-Your-Own-Maze Mode</h2>
+      <p>
+        A custom editor mode allows players to design their own maze by specifying:
+      </p>
+      <ul>
+        <li>Maze size and wall placement</li>
+        <li>Player spawn locations</li>
+        <li>Monster spawn locations</li>
+        <li>Chest and exit placement</li>
+      </ul>
+      <p>
+        The custom maze can then be played immediately in one-player or two-player mode.
+      </p>
+
+      <h2>Technical Highlights</h2>
+      <ul>
+        <li>Procedural maze generation</li>
+        <li>Raycasting-based pseudo-3D rendering</li>
+        <li>Adversarial search / pursuit logic for monsters</li>
+        <li>Modular game loop handling input, movement, combat, and rendering</li>
+      </ul>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

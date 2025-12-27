@@ -1,0 +1,111 @@
+---
+const title = "CBCT Radiomics for Cardiovascular Risk Prediction";
+const repo = "https://github.com/YOURUSERNAME/YOUR_REPO_NAME";
+const tags = [
+  "Machine Learning",
+  "Medical Imaging",
+  "Radiomics",
+  "CBCT",
+  "Healthcare AI",
+  "Python",
+  "Scikit-learn"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main style="max-width: 900px; margin: 48px auto; padding: 0 16px; font-family: system-ui, sans-serif; line-height: 1.55;">
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        This project investigates whether radiomic features extracted from dental Cone Beam CT (CBCT)
+        scans can be used to predict major cardiovascular and cerebrovascular outcomes.
+        Calcium deposits visible in head and neck CBCT scans are known indicators of systemic
+        vascular disease, and this work explores their predictive value using machine learning.
+      </p>
+
+      <h2>Problem Motivation</h2>
+      <p>
+        Standard diagnostic tools for cardiovascular disease (e.g., stroke or myocardial infarction)
+        require specialized equipment and clinical access. CBCT scans, however, are routinely
+        collected in dental settings. Leveraging these scans for early risk prediction could enable
+        low-cost, opportunistic screening in populations that otherwise lack access to advanced care.
+      </p>
+
+      <h2>Dataset</h2>
+      <ul>
+        <li>237 anonymized patients from Stony Brook University Hospital</li>
+        <li>Paired CBCT scans and longitudinal medical histories</li>
+        <li>~112 radiomic features extracted from calcification regions</li>
+      </ul>
+
+      <h2>Methodology</h2>
+      <ul>
+        <li>Radiomic feature extraction from segmented calcification regions</li>
+        <li>Unsupervised analysis to identify feature correlations</li>
+        <li>Feature selection via Information Gain (IG) and Recursive Feature Elimination (RFE)</li>
+        <li>Supervised learning using SVMs, Random Forests, Neural Networks, and ensembles</li>
+        <li>Binary and multiclass classification across multiple clinical outcomes</li>
+      </ul>
+
+      <h2>Predicted Outcomes</h2>
+      <ul>
+        <li>Stroke</li>
+        <li>Myocardial infarction</li>
+        <li>Hypertension</li>
+        <li>Low anticoagulant levels</li>
+        <li>Future cardiac surgery</li>
+      </ul>
+
+      <h2>Results</h2>
+      <p>
+        Models trained on features selected via Recursive Feature Elimination achieved the strongest
+        performance. Final binary classification accuracies included:
+      </p>
+      <ul>
+        <li><strong>Stroke:</strong> 88.23%</li>
+        <li><strong>Myocardial Infarction:</strong> 82.35%</li>
+        <li><strong>Hypertension:</strong> 91.31%</li>
+        <li><strong>Low Anticoagulants:</strong> 89.36%</li>
+        <li><strong>Cardiac Surgery:</strong> 86.54%</li>
+      </ul>
+
+      <p>
+        A multiclass model predicting all outcomes simultaneously achieved an accuracy of 70.6%.
+      </p>
+
+      <h2>Repository Structure</h2>
+      <ul>
+        <li><code>Allfeatures_*</code> — Models trained using all extracted radiomic features</li>
+        <li><code>InfoGainFeatures_*</code> — Models trained on features selected via mutual information</li>
+        <li><code>RFE_*</code> — Models trained on features selected via recursive feature elimination</li>
+        <li><code>Recursive_Feature_Elimination_*</code> — Trait-specific RFE procedures</li>
+        <li><code>Feature_Selection_&_Initial_Training.ipynb</code> — Feature extraction, IG selection, and baseline modeling</li>
+        <li><code>Final_Model_Optimizations.ipynb</code> — Final hyperparameter tuning and evaluation</li>
+      </ul>
+
+      <h2>Impact</h2>
+      <p>
+        This work demonstrates the feasibility of predicting major cardiovascular outcomes using
+        routinely collected dental imaging. It highlights the potential for CBCT-based opportunistic
+        screening pipelines that augment traditional healthcare workflows with data-driven risk
+        assessment.
+      </p>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

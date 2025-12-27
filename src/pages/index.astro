@@ -1,11 +1,323 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+const projects = [
+  {
+    slug: "cellcounter",
+    title: "CellCounter",
+    blurb:
+      "Computer vision pipeline for inferring cell counts from Visium spatial transcriptomics histology images (StarDist + OpenCV).",
+    repo: "https://github.com/tanu1239/CellCounter",
+  },
+  {
+    slug: "cbct-radiomics",
+    title: "CBCT Radiomics ML (CSIRE)",
+    blurb:
+      "Radiomics + ML pipeline on CBCT scans to predict cardiovascular outcomes (feature selection + classical ML).",
+    repo: "https://github.com/tanu1239/Machine-Learning-driven-Characterization-of-Calcifications-in-Dental-Cone-Beam-CT-Scans",
+  },
+  {
+    slug: "tms",
+    title: "TMS Brain Project",
+    blurb:
+      "Analysis work related to transcranial magnetic stimulation experiments and derived datasets.",
+    repo: "https://github.com/tanu1239/TMS-Project",
+  },
+  {
+    slug: "rp-eye",
+    title: "RP Eye Project",
+    blurb:
+      "Research work related to retinal disease / RP analysis.",
+    repo: "https://github.com/tanu1239/RP-project",
+  },
+  {
+    slug: "uci-web-experiments",
+    title: "UCI Web Experiments",
+    blurb:
+      "Three deployed web-based experiments for behavioral data collection.",
+    repo: "https://github.com/tanu1239?tab=repositories",
+    repos: [
+      "https://github.com/tanu1239/UC-Irvine-Web-Experiment-2",
+      "https://github.com/tanu1239/UC-Irvine-Web-Experiment-3",
+    ],
+  },
+  {
+    slug: "cmu-112",
+    title: "CMU 15-112 Term Project",
+    blurb: "Final project for CMU’s introductory CS course.",
+    repo: "https://github.com/tanu1239/3D-Maze-Terrain-Generation",
+  },
+];
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const skills = {
+  languages: ["Python", "C/C++", "Java", "JavaScript", "HTML/CSS", "SQL", "R", "MATLAB"],
+  packages: [
+    "React Native",
+    "TensorFlow",
+    "Keras",
+    "PyTorch",
+    "scikit-learn",
+    "Matplotlib",
+    "Pandas",
+    "NumPy",
+    "Seaborn",
+    "jsPsych",
+    "Gmsh",
+    "PyRadiomics",
+    "SimNIBS",
+    "Ionic",
+    "Firebase",
+    "Flask",
+    "Angular",
+    "Django",
+    "MongoDB",
+  ],
+};
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #111827;
+        --muted: #4b5563; /* readable gray */
+        --border: #e5e7eb;
+        --card: #ffffff;
+        --shadow: 0 1px 2px rgba(0,0,0,0.06), 0 10px 28px rgba(0,0,0,0.06);
+        --radius: 14px;
+
+        /* link styling */
+        --link: #2563eb;
+        --link-hover: #1d4ed8;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+      }
+
+      .container {
+        max-width: 980px;
+        margin: 56px auto;
+        padding: 0 18px;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      h1, h2, h3 {
+        letter-spacing: -0.02em;
+      }
+
+      h1 {
+        font-size: 34px;
+        line-height: 1.15;
+        margin: 0;
+      }
+
+      h2 {
+        margin-top: 26px;
+        margin-bottom: 10px;
+        font-size: 20px;
+      }
+
+      h3 {
+        font-size: 16px;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid var(--border);
+        margin: 22px 0;
+      }
+
+      .header {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .section-block {
+        margin-top: 22px;
+      }
+
+      /* Make links look like links */
+      a {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        font-weight: 600;
+      }
+
+      a:hover {
+        color: var(--link-hover);
+      }
+
+      /* Header links look like pills */
+      .toplinks a {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #fafafa;
+        text-decoration: none;
+      }
+
+      .toplinks a:hover {
+        background: #f3f4f6;
+        text-decoration: none;
+      }
+
+      /* Grid/cards */
+      .grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      @media (min-width: 860px) {
+        .grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .card {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        padding: 16px;
+        background: var(--card);
+        box-shadow: var(--shadow);
+      }
+
+      .card h3 {
+        margin: 0 0 6px 0;
+      }
+
+      .card p {
+        margin: 0 0 12px 0;
+        color: var(--muted);
+      }
+
+      /* Project links row */
+      .links {
+        margin-top: 2px;
+      }
+
+      .links a {
+        margin-right: 12px;
+        white-space: nowrap;
+      }
+
+      /* Lists */
+      ul {
+        margin: 8px 0 0 18px;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      /* Skills should be full contrast */
+      .skills-text {
+        color: var(--text);
+      }
+
+      footer {
+        margin-top: 46px;
+        color: var(--muted);
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Tanush Paradeshi</h1>
+
+        <!-- About text is FULL CONTRAST (not muted) -->
+        <p>
+          Hello I'm Tanush; I'm a sophomore at Carnegie Mellon University studying computer science and statistical machine learning. I enjoy building things across
+          web and mobile development, machine learning, and data science, and I’ve worked on projects in computer vision, bioinformatics, data science and computational modelling for physical systems.
+          I’m really into math, probability, and algorithms, and I have done some competitive math and programming.
+        </p>
+
+        <p class="toplinks">
+          <a href="https://github.com/tanu1239">GitHub</a> ·
+          <a href="https://www.linkedin.com/in/tanush-paradeshi-638754214">LinkedIn</a> ·
+          <a href="/resume.pdf">Resume</a> ·
+          <a href="mailto:tparades@andrew.cmu.edu">Email</a>
+        </p>
+      </header>
+
+      <hr />
+
+      <section class="section-block">
+        <h2>Education</h2>
+        <p style="margin: 0;"><strong>Carnegie Mellon University</strong></p>
+        <p style="margin-top: 6px;">B.S. Computer Science + Statistics/Machine Learning (edit as needed)</p>
+
+        <h3 style="margin-top: 16px;">Relevant Coursework</h3>
+        <ul>
+          <li>Data Structures & Algorithms (15-122)</li>
+          <li>Introduction to Computer Systems (15-213)</li>
+          <li>Functional Programming (15-150)</li>
+          <li>Parallel & Sequential Data Structures and Algorithms (15-210)</li>
+          <li>Great Theoretical Ideas in Computer Science (15-251)</li>
+          <li>Discrete Mathematics (21-127)</li>
+          <li>Linear Algebra (21-241)</li>
+          <li>Multivariable Calculus (21-259)</li>
+          <li>Probability Theory (21-325)</li>
+        </ul>
+      </section>
+
+      <section class="section-block">
+        <h2>Skills</h2>
+
+        <h3 style="margin: 10px 0 6px 0;">Proficient Programming Languages</h3>
+        <p class="skills-text">{skills.languages.join(", ")}</p>
+
+        <h3 style="margin: 14px 0 6px 0;">Packages / Software</h3>
+        <p class="skills-text">{skills.packages.join(", ")}</p>
+      </section>
+
+      <section class="section-block">
+        <h2>Projects</h2>
+        <div class="grid">
+          {projects.map((p) => (
+            <div class="card">
+              <h3>{p.title}</h3>
+              <p>{p.blurb}</p>
+
+              <div class="links">
+                <a href={`/projects/${p.slug}`}>Project page →</a>
+
+                {p.repos ? (
+                  <span>
+                    <a href={p.repo} target="_blank">GitHubExp1 →</a>
+                    {p.repos.map((link, i) => (
+                      <a href={link} target="_blank">GitHubExp{i + 2} →</a>
+                    ))}
+                  </span>
+                ) : (
+                  <a href={p.repo} target="_blank">GitHub →</a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <footer>
+        <small>© {new Date().getFullYear()} Tanush Paradeshi</small>
+      </footer>
+    </main>
+  </body>
+</html>

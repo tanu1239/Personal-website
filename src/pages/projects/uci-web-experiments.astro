@@ -1,0 +1,125 @@
+---
+const title = "UCI Web Experiments";
+const repo = "https://github.com/tanu1239"; // you can replace with a specific repo or list multiple below
+const tags = [
+  "Behavioral Experiments",
+  "Human-Computer Interaction",
+  "JavaScript",
+  "Web Experiments",
+  "Decision Making",
+  "Wisdom of Crowds"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        This project is a collection of browser-based behavioral experiments developed at
+        UC Irvine to study human perception, learning, and decision making.
+        All experiments are implemented as lightweight web applications using
+        JavaScript and HTML, and are designed for online deployment and data collection.
+      </p>
+
+      <p>
+        Together, these experiments explore how people form estimates, learn from feedback,
+        and adapt their strategies under different informational and environmental constraints.
+      </p>
+
+      <h2>Experiments</h2>
+
+      <h3>1. Wisdom of Crowds — Temperature Estimation</h3>
+      <p>
+        Participants estimate the true temperature of a briefly presented visual sensor using
+        information from multiple noisy thermometers. Across trials, feedback highlights the
+        most accurate thermometer.
+      </p>
+      <ul>
+        <li>60 trials split into 3 randomized blocks</li>
+        <li>Each block contains two expert information sources</li>
+        <li>Tests whether participants learn to rely on experts or aggregate estimates</li>
+        <li>Hosted using Firebase Hosting</li>
+      </ul>
+
+      <h3>2. Line Length Estimation (Baseline Data Collection)</h3>
+      <p>
+        A fast perceptual estimation task used to collect baseline human judgments.
+        A black line is flashed briefly, followed by a ruler for reference, and participants
+        estimate the line length using numeric keypresses.
+      </p>
+      <ul>
+        <li>100 ms stimulus presentation</li>
+        <li>Numeric responses using keys 0–9</li>
+        <li>10 trials per participant</li>
+        <li>Used as input data for downstream wisdom-of-crowds experiments</li>
+      </ul>
+
+      <h3>3. Agency and Instrumental Divergence Gambling Task</h3>
+      <p>
+        An online gambling task inspired by reinforcement learning and conditioning paradigms.
+        Participants make repeated choices in environments with either high or low agency,
+        defined by how much actions influence outcomes.
+      </p>
+      <ul>
+        <li>High vs low instrumental divergence environments</li>
+        <li>Learning and reward phases with changing outcome values</li>
+        <li>Examines goal-directed versus habitual decision-making</li>
+      </ul>
+
+      <h2>Technical Overview</h2>
+      <ul>
+        <li>Implemented using plain JavaScript and HTML</li>
+        <li>Shared experiment structure with a <code>public/</code> directory</li>
+        <li>Centralized task logic in JavaScript files</li>
+        <li>Designed for online deployment and scalable data collection</li>
+      </ul>
+
+      <h2>Links (Github repositories)</h2>
+      <ul>
+        <li>
+          <a href="https://github.com/tanu1239?tab=repositories" target="_blank">
+            Wisdom of Crowds Experiment
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/tanu1239/UC-Irvine-Web-Experiment-2" target="_blank">
+            Line Length Estimation Experiment
+          </a>
+        </li>
+        <li>
+          <a href="https://github.com/tanu1239/UC-Irvine-Web-Experiment-3" target="_blank">
+            Agency & Instrumental Divergence Experiment
+          </a>
+        </li>
+      </ul>
+
+      <h2>Highlights</h2>
+      <ul>
+        <li>Multiple experiments built on a shared web-based architecture</li>
+        <li>Focus on estimation, learning, and adaptive decision-making</li>
+        <li>Designed for real-world online data collection</li>
+        <li>Clear progression from baseline perception to complex strategy learning</li>
+      </ul>
+    </main>
+  </body>
+</html>

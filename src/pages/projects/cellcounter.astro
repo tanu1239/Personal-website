@@ -1,0 +1,165 @@
+---
+const title = "CellCounter — Visium Cell Counting for Spatial scDRS";
+const repo = "https://github.com/tanu1239/CellCounter";
+const tags = [
+  "Computer Vision",
+  "Spatial Transcriptomics",
+  "Python",
+  "StarDist",
+  "OpenCV",
+  "AnnData",
+  "BayesSpace",
+  "scDRS"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        <strong>CellCounter</strong> is a Python package that estimates the
+        <strong>number of cells per spot</strong> in
+        <strong>10x Visium spatial transcriptomics</strong> data using the paired
+        histology image. It runs a nuclei instance-segmentation pipeline built on
+        <strong>StarDist</strong> and <strong>OpenCV</strong>, with additional
+        preprocessing and analysis utilities.
+      </p>
+
+      <h2>Background</h2>
+      <p>
+        <strong>10x Visium</strong> is a spatial transcriptomics technique that
+        measures gene expression across a tissue section while preserving
+        spatial location. Expression is measured on a grid of spots overlaid on
+        the tissue, allowing analysis of <em>what genes are expressed where</em>.
+      </p>
+      <p>
+        Each Visium spot typically captures RNA from multiple cells, so the data
+        is observed at the <em>spot level</em> rather than at true single-cell
+        resolution.
+      </p>
+
+      <h2>scDRS</h2>
+      <p>
+        <strong>scDRS</strong> (single-cell Disease Relevance Score) is a method
+        developed for single-cell RNA-seq data. Given a trait- or disease-associated
+        gene set (often derived from GWAS), scDRS assigns a score to each cell
+        indicating how strongly that cell’s expression is associated with the trait.
+      </p>
+      <p>
+        This makes it possible to identify which cells or cell states are most
+        associated with a given disease or phenotype.
+      </p>
+
+      <h2>Extending scDRS to spatial transcriptomics</h2>
+      <p>
+        Extending scDRS to Visium data allows trait association to be studied
+        <em>in spatial context</em>. Instead of only identifying which cells are
+        associated with a disease, spatial data makes it possible to see
+        <strong>where</strong> those cells are located within the tissue.
+      </p>
+      <p>
+        This enables analyses such as identifying spatial neighborhoods enriched
+        for disease-associated cells, detecting spatial gradients, and understanding
+        how trait-associated cells are organized relative to tissue structure.
+      </p>
+
+      <h2>Approach</h2>
+      <ol>
+        <li>
+          Use histology images to estimate the <strong>number of cells per Visium spot</strong>
+          (this package).
+        </li>
+        <li>
+          Use <strong>BayesSpace</strong> to subdivide each spot into that many
+          <strong>subspots</strong> and infer subspot-level expression.
+          BayesSpace is a Bayesian method commonly used in Visium analysis for
+          spatial clustering and resolution enhancement.
+        </li>
+        <li>
+          Treat each subspot as an approximate single-cell unit and apply
+          scDRS-style scoring to associate traits or diseases with spatially
+          localized cells.
+        </li>
+      </ol>
+
+      <h2>What CellCounter does</h2>
+      <ul>
+        <li>
+          Loads Visium histology images from <strong>AnnData</strong>, image paths,
+          or large <strong>TIFF</strong> files into numpy arrays.
+        </li>
+        <li>
+          Crops regions of interest and extracts patches to support scalable
+          processing of large tissue slides.
+        </li>
+        <li>
+          Applies preprocessing operations including <strong>CLAHE</strong>,
+          <strong>unsharp masking</strong>, <strong>Laplacian filtering</strong>,
+          <strong>histogram equalization</strong>, and <strong>normalization</strong>.
+        </li>
+        <li>
+          Runs StarDist-based nuclei segmentation and extracts per-nucleus features
+          such as centroid coordinates, area, intensity statistics, and bounding boxes.
+        </li>
+        <li>
+          Aggregates nuclei detections into <strong>predicted cells-per-spot</strong>
+          using known Visium spot coordinates.
+        </li>
+        <li>
+          Compares predictions against manual annotations using spatial overlap
+          and Intersection-over-Union (IoU)–based matching.
+        </li>
+      </ul>
+
+      <h2>Applications</h2>
+      <ul>
+        <li>
+          Mapping disease- or trait-associated cells across tissue sections.
+        </li>
+        <li>
+          Identifying spatial neighborhoods enriched for trait relevance.
+        </li>
+        <li>
+          Detecting spatial gradients and boundaries in disease association.
+        </li>
+        <li>
+          Enabling scDRS-style analyses on spatial transcriptomics data.
+        </li>
+      </ul>
+
+      <h2>Repository Structure</h2>
+      <ul>
+        <li><code>utils.py</code> — histology image I/O and AnnData integration</li>
+        <li><code>extraction.py</code> — cropping and patch extraction utilities</li>
+        <li><code>preprocessing.py</code> — image preprocessing transformations</li>
+        <li><code>stardist_model.py</code> — nuclei segmentation and feature extraction</li>
+        <li><code>analysis.py</code> — spot-level aggregation and annotation comparison</li>
+      </ul>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+    </main>
+  </body>
+</html>

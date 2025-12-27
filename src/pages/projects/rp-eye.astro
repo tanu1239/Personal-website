@@ -1,0 +1,96 @@
+---
+const title = "Retinitis Pigmentosa (RP) Detector — Mobile ML App";
+const repo = "https://github.com/tanu1239/RP-project"; // update if your repo name differs
+const tags = [
+  "Mobile ML",
+  "React Native",
+  "Expo",
+  "TensorFlow.js",
+  "Computer Vision",
+  "Healthcare AI"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        This project explores automated detection of <strong>Retinitis Pigmentosa (RP)</strong> from retinal images
+        using deep learning, with a focus on <strong>low-cost, accessible screening</strong>.
+        The trained model is deployed inside a cross-platform mobile app that runs inference on user-provided images.
+      </p>
+
+      <p>
+        RP diagnosis typically requires access to specialized equipment (e.g., ERG, visual field testing, genetic testing,
+        and/or clinical retinal photography). This project investigates whether an image-based model can provide a fast,
+        inexpensive signal that could be useful for triage or screening workflows (research/educational use only).
+      </p>
+
+      <h2>What I Built</h2>
+      <ul>
+        <li>A deep learning classifier for RP vs. non-RP retinal images (transfer learning with MobileNet)</li>
+        <li>Evaluation using both a train/validation/test split and 10-fold cross validation</li>
+        <li>A mobile app (Expo / React Native) that loads a TFJS model and performs on-device inference</li>
+        <li>Optional ensemble inference by averaging predictions across multiple cross-validation models</li>
+      </ul>
+
+      <h2>Model + Results (from the accompanying write-up)</h2>
+      <ul>
+        <li>Dataset: 258 normal + 258 RP images (Tsukazaki Optos Public Dataset)</li>
+        <li>Train/val/test split: 70% / 15% / 15%</li>
+        <li>Approximate test metrics (avg over trials): ~90% accuracy, ~0.89 F1, ~97% specificity</li>
+        <li>10-fold CV: ~96% mean accuracy (reported)</li>
+      </ul>
+
+      <h2>How the App Works</h2>
+      <p>
+        The app allows users to either take a photo or select one from the gallery, then runs the following pipeline:
+      </p>
+      <ol>
+        <li>Convert the input image to <strong>JPEG</strong> (ensures decoding works reliably across formats).</li>
+        <li>Decode to a tensor and resize to <strong>224×224</strong>.</li>
+        <li>Normalize pixels to <strong>[0, 1]</strong> and add a batch dimension.</li>
+        <li>Run inference with TensorFlow.js and display <strong>RP Present</strong> / <strong>No RP</strong> + confidence.</li>
+      </ol>
+
+      <h2>Repository Contents</h2>
+      <ul>
+        <li><code>predict.js</code> — image preprocessing + TFJS inference + UI</li>
+        <li><code>model.json</code> + shard files — exported TensorFlow.js model weights</li>
+        <li><code>final_model.py</code> — training / export pipeline (Python)</li>
+        <li><code>App.js</code>, <code>app.json</code>, <code>babel.config.js</code> — app scaffolding/config</li>
+      </ul>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+
+      <h2>Disclaimer</h2>
+      <p>
+        <strong>This project is for research and educational purposes only.</strong> It is not a medical device and is not
+        intended for clinical diagnosis or treatment decisions.
+      </p>
+    </main>
+  </body>
+</html>
