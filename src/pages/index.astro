@@ -45,6 +45,13 @@ const projects = [
     blurb: "3D maze escape game with raycasting, procedural generation, and adversarial agents.",
     repo: "https://github.com/tanu1239/3D-Maze-Terrain-Generation",
   },
+  {
+    slug: "anki-lite",
+    title: "AnkiLite: Time-Aware Spaced Repetition Learning System",
+    blurb:
+      "Full-stack Anki-inspired flashcard system with configurable scheduling, time-aware grading, and both spaced-repetition and cram review modes.",
+    repo: "https://github.com/tanu1239/AnkiLite",
+  },
 ];
 
 const skills = {
@@ -71,6 +78,11 @@ const skills = {
     "MongoDB",
   ],
 };
+
+// ✅ Only change: if odd number of projects, center the last one
+const hasOddProjects = projects.length % 2 === 1;
+const gridProjects = hasOddProjects ? projects.slice(0, -1) : projects;
+const lastProject = hasOddProjects ? projects[projects.length - 1] : null;
 ---
 
 <html lang="en">
@@ -234,6 +246,24 @@ const skills = {
         margin-top: 46px;
         color: var(--muted);
       }
+
+      /* ✅ Only added for centering the last project when count is odd */
+      .center-last {
+      display: flex;
+      justify-content: center;
+      margin-top: 16px;
+    }
+
+    .center-last .card {
+      max-width: 480px;   /* single-column width */
+      width: 100%;
+    }
+
+      @media (min-width: 860px) {
+        .center-last .card {
+          max-width: 480px; /* roughly one column width */
+        }
+      }
     </style>
   </head>
 
@@ -288,8 +318,9 @@ const skills = {
 
       <section class="section-block">
         <h2>Projects</h2>
+
         <div class="grid">
-          {projects.map((p) => (
+          {gridProjects.map((p) => (
             <div class="card">
               <h3>{p.title}</h3>
               <p>{p.blurb}</p>
@@ -311,6 +342,20 @@ const skills = {
             </div>
           ))}
         </div>
+
+        {lastProject && (
+          <div class="center-last">
+            <div class="card">
+              <h3>{lastProject.title}</h3>
+              <p>{lastProject.blurb}</p>
+
+              <div class="links">
+                <a href={`/projects/${lastProject.slug}`}>Project page →</a>
+                <a href={lastProject.repo} target="_blank">GitHub →</a>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
 
       <footer>

@@ -1,0 +1,192 @@
+---
+const title = "AnkiLite — Time-Aware Spaced Repetition Flashcards";
+const repo = "https://github.com/tanu1239/AnkiLite";
+const tags = [
+  "Angular",
+  "Django REST",
+  "JWT Auth",
+  "SQLite",
+  "MongoDB",
+  "Spaced Repetition",
+  "Time-Aware Grading"
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title} — Tanush Paradeshi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+
+  <body>
+    <main
+      style="
+        max-width: 900px;
+        margin: 48px auto;
+        padding: 0 16px;
+        font-family: system-ui, sans-serif;
+        line-height: 1.6;
+      "
+    >
+      <a href="/">← Back</a>
+
+      <h1 style="margin-top: 16px;">{title}</h1>
+
+      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+
+      <p>
+        <strong>AnkiLite</strong> is an Anki-inspired flashcards + spaced repetition web app, built end-to-end with a
+        focus on <strong>transparency</strong> and <strong>control</strong>.
+        Instead of hiding the scheduling logic, AnkiLite makes review behavior configurable per deck and adds
+        <strong>time-aware learning signals</strong> (how quickly you answered) to support smarter practice workflows.
+      </p>
+
+      <h2>What Makes It Distinct (Not a Clone)</h2>
+      <ul>
+        <li>
+          <strong>Per-deck scheduling settings:</strong> each deck controls the intervals for Again/Hard/Good/Easy,
+          and you can edit these settings anytime.
+        </li>
+        <li>
+          <strong>Two scheduling modes:</strong> <strong>Fixed</strong> (exact user-defined intervals) and
+          <strong>Hybrid</strong> (starts from your intervals and scales over time).
+        </li>
+        <li>
+          <strong>Time-aware grading signals:</strong> the app records how long you took to think and how long you took
+          to choose a grade (useful for analytics + prioritization).
+        </li>
+        <li>
+          <strong>Force review:</strong> you can “force due” a deck to review immediately (optionally resetting progress).
+        </li>
+        <li>
+          <strong>Cram mode:</strong> practice cards even when nothing is due (good for last-minute studying).
+        </li>
+      </ul>
+
+      <h2>User Flow</h2>
+      <ol>
+        <li><strong>Register / Login</strong> (JWT)</li>
+        <li><strong>Create decks</strong> (with configurable review intervals)</li>
+        <li><strong>Add cards</strong> (front/back + optional tags)</li>
+        <li><strong>Review</strong> in either:
+          <ul>
+            <li><strong>Due (SRS)</strong>: only shows cards currently scheduled as due</li>
+            <li><strong>Cram</strong>: shows cards for practice even if not due</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>Scheduling Modes</h2>
+      <p>
+        Each deck supports two deterministic scheduling modes:
+      </p>
+      <ul>
+        <li>
+          <strong>Fixed</strong>: Again/Hard/Good/Easy always schedule the next due time using the exact deck-defined
+          intervals (great for “I want full control”).
+        </li>
+        <li>
+          <strong>Hybrid</strong>: starts from the deck-defined intervals, then scales future intervals based on the
+          card’s ease / repetition history (more like a traditional SRS feel, but still grounded in user settings).
+        </li>
+      </ul>
+
+      <h2>Review Signals (Time-Aware)</h2>
+      <p>
+        For every review, AnkiLite records timing metadata:
+      </p>
+      <ul>
+        <li><strong>think_ms</strong>: time from card shown → answer revealed (or grade click if never revealed)</li>
+        <li><strong>grade_ms</strong>: time from reveal → grade click</li>
+        <li><strong>session_id</strong>: groups a review session</li>
+      </ul>
+      <p>
+        These are stored as review events so you can later analyze difficulty trends, “hesitation” cards, speed vs accuracy,
+        and overall study behavior.
+      </p>
+
+      <h2>Backend Design</h2>
+      <ul>
+        <li><strong>Django REST + SimpleJWT</strong> for authentication and APIs</li>
+        <li><strong>SQLite</strong> for core relational entities (users, decks, cards, deck settings)</li>
+        <li><strong>MongoDB</strong> for append-only review event logs (timing + grade history)</li>
+      </ul>
+
+      <h3>Core API Endpoints</h3>
+      <ul>
+        <li><code>POST /api/auth/register</code></li>
+        <li><code>POST /api/auth/login</code></li>
+        <li><code>GET /api/auth/me</code></li>
+        <li><code>GET /api/decks</code>, <code>POST /api/decks</code></li>
+        <li><code>PATCH /api/decks/:id</code> (update deck scheduling)</li>
+        <li><code>POST /api/decks/:id/cards</code></li>
+        <li><code>POST /api/decks/:id/force_due</code></li>
+        <li><code>GET /api/review/due</code> (SRS queue)</li>
+        <li><code>GET /api/review/cram</code> (practice queue)</li>
+        <li><code>POST /api/review/:card_id</code> (submit grade + timing)</li>
+      </ul>
+
+      <h2>Frontend Design</h2>
+      <ul>
+        <li><strong>Angular</strong> standalone components + route pages</li>
+        <li><strong>JWT</strong> stored client-side + attached via interceptor</li>
+        <li>Clean “Decks → Add Cards → Review” workflow</li>
+        <li>Review UI supports:
+          <ul>
+            <li>Deck selection (or All decks)</li>
+            <li>Due vs Cram mode</li>
+            <li>Progress indicator</li>
+            <li>Done state with sensible next actions</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h2>Repo Structure (High-Level)</h2>
+      <ul>
+        <li><code>backend/</code> — Django project (accounts, decks, reviews, scheduling logic, Mongo logging)</li>
+        <li><code>frontend/</code> — Angular app (login, decks, review pages + services)</li>
+        <li><code>docker-compose.yml</code> — MongoDB container for event logs</li>
+      </ul>
+
+      <h2>Run Locally</h2>
+      <ol>
+        <li>
+          <strong>Backend</strong>:
+          <ul>
+            <li>Activate venv</li>
+            <li>Run migrations</li>
+            <li><code>python manage.py runserver</code> (http://127.0.0.1:8000)</li>
+          </ul>
+        </li>
+        <li>
+          <strong>MongoDB</strong>:
+          <ul>
+            <li><code>docker compose up -d</code></li>
+          </ul>
+        </li>
+        <li>
+          <strong>Frontend</strong>:
+          <ul>
+            <li><code>npm install</code></li>
+            <li><code>npm start</code> (http://localhost:4200)</li>
+          </ul>
+        </li>
+      </ol>
+
+      <h2>Future Ideas</h2>
+      <ul>
+        <li>Stats dashboard (streaks, speed trends, accuracy per deck)</li>
+        <li>Import/export (CSV / Anki format)</li>
+        <li>Markdown/LaTeX card rendering</li>
+        <li>Smarter prioritization using timing + lapses</li>
+        <li>Offline mode (IndexedDB)</li>
+      </ul>
+
+      <h2>Links</h2>
+      <ul>
+        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+      </ul>
+    </main>
+  </body>
+</html>
