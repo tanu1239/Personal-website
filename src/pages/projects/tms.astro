@@ -1,6 +1,7 @@
 ---
 const title = "Deep TMS Targeting via SimNIBS + Unsupervised Analysis";
 const repo = "https://github.com/tanu1239/TMS-Project";
+const paper = "https://doi.org/10.47611/jsrhs.v12i4.5924";
 const tags = [
   "Computational Neuroscience",
   "Biomedical Engineering",
@@ -8,7 +9,7 @@ const tags = [
   "TMS",
   "Finite Element Simulation",
   "Python",
-  "Clustering"
+  "Clustering",
 ];
 ---
 
@@ -17,23 +18,146 @@ const tags = [
     <meta charset="UTF-8" />
     <title>{title} — Tanush Paradeshi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  </head>
 
-  <body>
-    <main
-      style="
+    <style>
+      :root {
+        --bg: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --border: #e5e7eb;
+        --card: #ffffff;
+        --shadow: 0 1px 2px rgba(0,0,0,0.06), 0 10px 28px rgba(0,0,0,0.06);
+        --radius: 14px;
+        --link: #2563eb;
+        --link-hover: #1d4ed8;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        line-height: 1.6;
+      }
+
+      main {
         max-width: 900px;
         margin: 48px auto;
         padding: 0 16px;
-        font-family: system-ui, sans-serif;
-        line-height: 1.6;
-      "
-    >
+      }
+
+      a {
+        color: var(--link);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        font-weight: 600;
+      }
+
+      a:hover {
+        color: var(--link-hover);
+      }
+
+      h1 {
+        margin: 14px 0 8px 0;
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+
+      h2 {
+        margin-top: 22px;
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 10px 0;
+      }
+
+      ul, ol {
+        margin: 8px 0 0 18px;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.95em;
+      }
+
+      /* Small “tag pill” style */
+      .tags {
+        color: var(--muted);
+        margin-top: 6px;
+      }
+
+      /* Highlighted links row near top (matches your index look) */
+      .toplinks {
+        margin-top: 12px;
+        margin-bottom: 18px;
+      }
+
+      .toplinks a {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #fafafa;
+        text-decoration: none;
+        font-weight: 600;
+        margin-right: 8px;
+        margin-bottom: 8px;
+      }
+
+      .toplinks a:hover {
+        background: #f3f4f6;
+      }
+
+      /* Optional “callout” for the paper so it’s not buried */
+      .callout {
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: var(--card);
+        box-shadow: var(--shadow);
+        padding: 14px 16px;
+        margin-top: 14px;
+      }
+
+      .callout-title {
+        font-weight: 700;
+        margin: 0 0 4px 0;
+      }
+
+      .muted {
+        color: var(--muted);
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
       <a href="/">← Back</a>
 
-      <h1 style="margin-top: 16px;">{title}</h1>
+      <h1>{title}</h1>
+      <p class="tags"><strong>Tags:</strong> {tags.join(" · ")}</p>
 
-      <p><strong>Tags:</strong> {tags.join(" · ")}</p>
+      {/* ✅ Put repo + paper near the top so it’s visible immediately */}
+      <div class="toplinks">
+        <a href={repo} target="_blank" rel="noreferrer">GitHub</a>
+        <a href={paper} target="_blank" rel="noreferrer">Paper (DOI)</a>
+      </div>
+
+      {/* ✅ Small callout to make the paper feel “real” without being spammy */}
+      <div class="callout">
+        <p class="callout-title">Published write-up</p>
+        <p class="muted">
+          “Identifying Locations for Transcranial Magnetic Stimulation Coil Placement For Deep Brain Structures”
+          (Journal for Student Research, Vol. 12 No. 4, 2023).
+        </p>
+      </div>
 
       <p>
         This project investigates whether <strong>deep transcranial magnetic stimulation (TMS)</strong> coils can
@@ -50,17 +174,25 @@ const tags = [
 
       <h2>High-Level Pipeline</h2>
       <ol>
-        <li><strong>Head model inputs</strong>: subject MRI-derived reconstructions and meshes (T1/T2 → headreco output).</li>
-        <li><strong>Optimization runs</strong>: simulate coil placements across the scalp to find the best location for each target.</li>
-        <li><strong>Coordinate normalization</strong>: convert subject-space outputs into <strong>MNI space</strong> via affine transforms.</li>
-        <li><strong>Unsupervised analysis</strong>: identify consistent “best” scalp regions using clustering + t-SNE.</li>
-        <li><strong>FEA validation</strong>: re-simulate using representative optimal coordinates to quantify induced field intensity.</li>
+        <li>
+          <strong>Head model inputs</strong>: subject MRI-derived reconstructions and meshes (T1/T2 → headreco output).
+        </li>
+        <li>
+          <strong>Optimization runs</strong>: simulate coil placements across the scalp to find the best location for each target.
+        </li>
+        <li>
+          <strong>Coordinate normalization</strong>: convert subject-space outputs into <strong>MNI space</strong> via affine transforms.
+        </li>
+        <li>
+          <strong>Unsupervised analysis</strong>: identify consistent “best” scalp regions using clustering + t-SNE.
+        </li>
+        <li>
+          <strong>FEA validation</strong>: re-simulate using representative optimal coordinates to quantify induced field intensity.
+        </li>
       </ol>
 
       <h2>Targets</h2>
-      <p>
-        Simulations were run for deep structures motivated by DBS targets / clinical relevance, including:
-      </p>
+      <p>Simulations were run for deep structures motivated by DBS targets / clinical relevance, including:</p>
       <ul>
         <li>Amygdala</li>
         <li>Anterior Cingulate Cortex</li>
@@ -102,20 +234,16 @@ const tags = [
 
       <h2>Why It Matters</h2>
       <ul>
-        <li>
-          Deep TMS is non-invasive and more accessible than DBS, but depth targeting is technically challenging.
-        </li>
-        <li>
-          This project uses simulation to systematically test whether deep coils can meaningfully reach subcortical targets.
-        </li>
-        <li>
-          The analysis identifies robust scalp placement regions and supports follow-up validation and future studies.
-        </li>
+        <li>Deep TMS is non-invasive and more accessible than DBS, but depth targeting is technically challenging.</li>
+        <li>This project uses simulation to systematically test whether deep coils can meaningfully reach subcortical targets.</li>
+        <li>The analysis identifies robust scalp placement regions and supports follow-up validation and future studies.</li>
       </ul>
 
+      {/* Kept the Links section too, but now it’s not the only place */}
       <h2>Links</h2>
       <ul>
-        <li><a href={repo} target="_blank">GitHub Repository</a></li>
+        <li><a href={repo} target="_blank" rel="noreferrer">GitHub Repository</a></li>
+        <li><a href={paper} target="_blank" rel="noreferrer">Paper (DOI)</a></li>
       </ul>
 
       <h2>Disclaimer</h2>
