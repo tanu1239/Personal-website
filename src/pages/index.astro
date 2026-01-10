@@ -20,6 +20,7 @@ const projects = [
     blurb:
       "Large-scale finite-element modeling and unsupervised learning for optimizing deep transcranial magnetic stimulation.",
     repo: "https://github.com/tanu1239/TMS-Project",
+    paper: "https://doi.org/10.47611/jsrhs.v12i4.5924",
   },
   {
     slug: "rp-eye",
@@ -42,7 +43,8 @@ const projects = [
   {
     slug: "cmu-112",
     title: "Procedurally Generated 3D Maze Game",
-    blurb: "3D maze escape game with raycasting, procedural generation, and adversarial agents.",
+    blurb:
+      "3D maze escape game with raycasting, procedural generation, and adversarial agents.",
     repo: "https://github.com/tanu1239/3D-Maze-Terrain-Generation",
   },
   {
@@ -249,15 +251,15 @@ const lastProject = hasOddProjects ? projects[projects.length - 1] : null;
 
       /* ✅ Only added for centering the last project when count is odd */
       .center-last {
-      display: flex;
-      justify-content: center;
-      margin-top: 16px;
-    }
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+      }
 
-    .center-last .card {
-      max-width: 480px;   /* single-column width */
-      width: 100%;
-    }
+      .center-last .card {
+        max-width: 480px;   /* single-column width */
+        width: 100%;
+      }
 
       @media (min-width: 860px) {
         .center-last .card {
@@ -272,9 +274,8 @@ const lastProject = hasOddProjects ? projects[projects.length - 1] : null;
       <header class="header">
         <h1>Tanush Paradeshi</h1>
 
-        <!-- About text is FULL CONTRAST (not muted) -->
         <p>
-          Hello, I’m Tanush. a sophomore at Carnegie Mellon University studying computer science and statistical machine learning. I enjoy building things across web and mobile development, machine learning, and data science, with projects spanning computer vision, bioinformatics, and computational modeling of physical systems. I’m particularly interested in math, probability, and algorithms, and I’ve also spent time doing competitive math and programming.
+          Hello I’m Tanush, a sophomore at Carnegie Mellon University studying computer science and statistical machine learning. I enjoy building things across web and mobile development, machine learning, and data science, with projects spanning computer vision, bioinformatics, and computational modeling of physical systems. I’m particularly interested in math, probability, and algorithms, and I’ve also spent time doing competitive math and programming.
         </p>
 
         <p class="toplinks">
@@ -338,6 +339,10 @@ const lastProject = hasOddProjects ? projects[projects.length - 1] : null;
                 ) : (
                   <a href={p.repo} target="_blank">GitHub →</a>
                 )}
+
+                {p.paper && (
+                  <a href={p.paper} target="_blank">Paper →</a>
+                )}
               </div>
             </div>
           ))}
@@ -352,6 +357,9 @@ const lastProject = hasOddProjects ? projects[projects.length - 1] : null;
               <div class="links">
                 <a href={`/projects/${lastProject.slug}`}>Project page →</a>
                 <a href={lastProject.repo} target="_blank">GitHub →</a>
+                {lastProject.paper && (
+                  <a href={lastProject.paper} target="_blank">Paper →</a>
+                )}
               </div>
             </div>
           </div>
